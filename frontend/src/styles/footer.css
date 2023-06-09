@@ -1,0 +1,18 @@
+footer {
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items: center;
+  background-color: rgb(71, 68, 68);
+  color: white;
+}
+.icons {
+  padding: 24px;
+}
+
+.icons i {
+  padding: 20px;
+}
+a{
+  color: white;
+}
