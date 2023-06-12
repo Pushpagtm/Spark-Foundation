@@ -35,42 +35,102 @@ app.get("/read/:id", (req, res) => {
     return res.json(result);
   });
 });
-app.post('/transaction',(req,res)=>{
-  const sender=req.body.sender;
-  const receiver=req.body.receiver;
-  const balance=req.body.balance;
 
-if(balance>0){
-  const senderBlc = db.query(`SELECT * FROM customers where id=${sender}`)
-  console.log(senderBlc);
-  return res.status(200).json({
-    senderBlc
-  })
+app.post("/transaction", (req, res) => {
+  try {
+    const sender = req.body.sender;
+    const receiver = req.body.receiver;
+    const balance = req.body.balance;
 
+    if (balance > 0) {
+      const senderBlc = `SELECT * FROM customers where id=${sender}`;
+      const receiverBlc = `SELECT * FROM customers where id=${receiver}`;
 
+      db.query(senderBlc, async (err, result) => {
+        if (err) {
+          return res.status(500).json({
+            message: "Internal server error",
+          });
+        }
+        await db.query(receiverBlc, async (err, result2) => {
+          if (err) {
+            return res.status(500).json({
+              message: "Internal server error",
+            });
+          }
 
-  db.query("INSERT INTO transfers (sender,receiver,balance) VALUES (?,?,?)",
-  [sender,receiver,balance],(err,result)=>{
-      if(err){
-        console.log(err);
-      }
-      else{
-        res.send("Values Inserted.");
-      }
+          if (parseInt(result[0].balance) < parseInt(balance)) {
+            return res.status(500).json({
+              message: "Insufficient balance",
+            });
+          }
+
+          const updateblcsender =
+            parseInt(result[0].balance) - parseInt(balance);
+          const updateblcreceiver =
+            parseInt(result[0].balance) + parseInt(balance);
+
+          const senderBlc = `UPDATE customers SET balance = ${updateblcsender} WHERE id = ${result[0].id}`;
+          const receiverBlc = `UPDATE customers SET balance = ${updateblcreceiver} WHERE id = ${result2[0].id}`;
+
+          await db.query(senderBlc);
+          await db.query(receiverBlc);
+
+          const insertQuery =
+            "INSERT INTO transactions (sender, receiver, amount) VALUES (?, ?, ?)";
+          const customerData = [sender, receiver, balance];
+
+          db.query(insertQuery, customerData, (err, result) => {
+            if (err) {
+              return res.status(500).json({
+                message: err.message,
+              });
+            }
+            console.log("transaction created successfully");
+          });
+
+          return res.status(200).json({
+            senderUser: result,
+            receiver: result2,
+          });
+        });
+      });
+    }
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
   }
-);
-}
+
+  //   db.query("INSERT INTO transfers (sender,receiver,balance) VALUES (?,?,?)",
+  //   [sender,receiver,balance],(err,result)=>{
+  //       if(err){
+  //         console.log(err);
+  //       }
+  //       else{
+  //         res.send("Values Inserted.");
+  //       }
+  //   }
+  // );
+  // }
 });
-app.put("/update",(req,res)=>{
-  const receiver=req.body.receiver;
-  const balance=req.body.balance;
+app.get("/transfer", (req, res) => {
+  const sql = "SELECT * FROM transactions";
+  db.query(sql, (err, result) => {
+    if (err) return res.json({ Message: "error inside server" });
+    return res.json(result);
+  });
+});
+app.put("/update", (req, res) => {
+  const receiver = req.body.receiver;
+  const balance = req.body.balance;
   db.query(
     "UPDATE customers SET balance=? WHERE name=?",
-    [balance,receiver],
-    (err,result)=>{
-      if(err){
+    [balance, receiver],
+    (err, result) => {
+      if (err) {
         console.log(err);
-      }else{
+      } else {
         res.send(result);
       }
     }

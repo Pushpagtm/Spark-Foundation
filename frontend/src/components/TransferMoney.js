@@ -126,7 +126,7 @@ function TransferMoney(props) {
               </select>
          
           <label>Amount</label>
-          <input  placeholder="Rs." onChange={(e)=>{setBal(e.target.value)}} value={bal}/>
+          <input type="number" placeholder="Rs." onChange={(e)=>{setBal(e.target.value)}} value={bal}/>
           <button className="submitBtn" type="button" onClick={()=>transfers()} >
         
           Send</button>
