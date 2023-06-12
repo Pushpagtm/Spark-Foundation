@@ -5,9 +5,12 @@ footer {
   align-items: center;
   background-color: rgb(71, 68, 68);
   color: white;
+  /* position: fixed;
+  bottom: 36px;
+  width: 100vw; */
 }
 .icons {
-  padding: 24px;
+  padding: 10px;
 }
 
 .icons i {
@@ -15,4 +18,7 @@ footer {
 }
 a{
   color: white;
+}
+.copyright{
+  margin-bottom: 10px;
 }

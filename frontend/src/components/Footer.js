@@ -18,7 +18,7 @@ function Footer(props) {
             <AiFillInstagram size={40} />
           </i>
         </div>
-        <div> &copy; {new Date().getFullYear()} Copyright:
+        <div className="copyright"> &copy; {new Date().getFullYear()} Copyright:
       <Link href='#'>
         sparkbank.com
       </Link></div>

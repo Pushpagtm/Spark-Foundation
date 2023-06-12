@@ -11,12 +11,10 @@ function Transactions(props) {
       .then((res) => setTransaction(res.data))
       .catch((err) => console.log(err));
   }, []);
-  console.log("=================",transaction)
     return (
         <>
-        <div>
-             <div >
-             <table className='customers_table'>
+    <div className='customers' >
+       <table className='customers_table'>
         <tr className='headings'>
           <th>Serial number</th>
           <th>Sender</th>
@@ -38,7 +36,6 @@ function Transactions(props) {
         }
         
         </table>
-        </div>
         </div>
         </>
     );

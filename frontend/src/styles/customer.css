@@ -1,8 +1,15 @@
-.customers_table {
-  width: 100vw;
+.customers{
   height: 100vh;
+  width: 98.5vw;
+}
+
+
+.customers_table {
+  width: 100%;
+  padding: 40px;
+  /* width: 98.5vw; */
+  /* height: 100vh; */
   font-family: "Poppins";
-  
 }
 tr:nth-child(even) {
   background-color: #dddddd;
