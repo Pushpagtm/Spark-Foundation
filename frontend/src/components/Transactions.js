@@ -1,9 +1,9 @@
 import {useState,useEffect} from 'react';
 import '../styles/customer.css';
 import axios from "axios";
-import  {Link}  from "react-router-dom";
 function Transactions(props) {
     const [transaction, setTransaction] = useState([]);
+
 
   useEffect(() => {
     axios
@@ -17,8 +17,8 @@ function Transactions(props) {
        <table className='customers_table'>
         <tr className='headings'>
           <th>Serial number</th>
-          <th>Sender</th>
-          <th>Receiver</th>
+          <th>Sender ID</th>
+          <th>Receiver ID</th>
           <th>Balance</th>
         </tr>
         {

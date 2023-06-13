@@ -3,6 +3,7 @@
     display: flex;
     justify-content: center;
     margin-top: 2rem;
+    
 }
 
 form {
@@ -19,7 +20,7 @@ form {
 
 form h2{
     font-family: poppins;
-    color: #6971cb;
+    color: #1e9bdf;
 }
 label{
     font-size: 25px;

@@ -2,17 +2,14 @@ import React from "react";
 import "../styles/transfer.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 function TransferMoney(props) {
-  const navigate = useNavigate();
-  const { id } = useParams();
   const [customers,setCustomers]=useState([]);
   const [sender,setSender]= useState("");
   const [receiver,setReceiver]= useState("");
   const [bal,setBal]= useState("");
-  let correct=true;
-  let senderBalance=0;
+
   useEffect(() => {
     axios
       .get("http://localhost:8000/")
@@ -22,77 +19,27 @@ function TransferMoney(props) {
 
   const transfers=()=>{
 
-      // console.log("Sender",sender);
-      // console.log("Receiver",receiver);
-      // console.log("Balance",bal);
-      // if(sender==="" || receiver===""){
-      //   correct=false;
-      //   setSender("");
-      //   setReceiver("");
-      //   setBal("");
-      //   return(alert('Enter all Details.'))
-      // }
-      // if(bal===""){
-      //   correct=false;
-  
-      //   return(alert('Please Enter Amount.'))}
-      //   for(const val of customers)
-      //   {
-      //     if(val.name===sender){
-      //       senderBalance=val.balance;
-      //     }
-      //   }
-  
-      //   console.log("Sender balance",senderBalance);
-      //   if(senderBalance-bal<0){
-      //     correct=false;
-      //     setSender("");
-      //     setReceiver("");
-      //     setBal("");
-      //     return(alert('Not enough balance'))}
-  
-      //   if(correct===true){
-  
       axios.post("http://localhost:8000/transaction",{
         sender:sender,
         receiver:receiver,
         balance:bal
       }).then(()=>{
+        Swal.fire({
+          title: "Money Transfer Sucessful",
+          showClass: {
+            popup: "animate__animated animate__fadeInDown",
+          },
+          hideClass: {
+            popup: "animate__animated animate__fadeOutUp",
+          },
+        });
         console.log("Success");
       }).catch((err)=>{
+        
         console.log(err.message)
       })
   
-      // axios.put("http://localhost:8000/update",{
-      //   balance:bal,
-      //   receiver:receiver
-      // }).then((response)=>{
-      //   setCustomers(
-      //     customers.map((val)=>{
-      //       return val.name===receiver?
-      //       {
-      //         id:val.id,
-      //         name:val.name,
-            
-      //         balance:parseInt(bal)+parseInt(val.balance),
-      //       }
-      //       :val.name===sender?
-      //       {
-      //         id:val.id,
-      //         name:val.name,
-      //         balance:parseInt(val.balance)-parseInt(bal),
-      //       }
-      //       :val;
-      //     })
-      //   );
-  
-      //   alert("Successful Transaction");
-      
-      //   setSender("");
-      //   setReceiver("");
-      //   setBal("");
-      // });
-    // }
+      console.log("======sender,reciver",sender,receiver)
   };
   return (
     <>
@@ -127,9 +74,9 @@ function TransferMoney(props) {
          
           <label>Amount</label>
           <input type="number" placeholder="Rs." onChange={(e)=>{setBal(e.target.value)}} value={bal}/>
-          <button className="submitBtn" type="button" onClick={()=>transfers()} >
+          <Link to='/customer'><button className="submitBtn" type="button" onClick={()=>transfers()} >
         
-          Send</button>
+        Send</button></Link>
          
         </form>
       </div>
