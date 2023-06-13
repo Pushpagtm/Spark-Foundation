@@ -78,7 +78,7 @@ app.post("/transaction", (req, res) => {
 
           const insertQuery =
             "INSERT INTO transactions (sender, receiver, amount) VALUES (?, ?, ?)";
-          const customerData = [sender, receiver, balance];
+          const customerData = [result[0].name, result2[0].name, balance];
 
           db.query(insertQuery, customerData, (err, result) => {
             if (err) {

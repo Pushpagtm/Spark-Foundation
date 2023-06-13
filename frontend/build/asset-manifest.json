@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/Spark-Foundation/static/css/main.4ab75d4f.css",
+    "main.js": "/Spark-Foundation/static/js/main.70f78911.js",
+    "static/media/logo.png": "/Spark-Foundation/static/media/logo.da2b8bf28408a478b9c7.png",
+    "index.html": "/Spark-Foundation/index.html",
+    "main.4ab75d4f.css.map": "/Spark-Foundation/static/css/main.4ab75d4f.css.map",
+    "main.70f78911.js.map": "/Spark-Foundation/static/js/main.70f78911.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4ab75d4f.css",
+    "static/js/main.70f78911.js"
+  ]
+}

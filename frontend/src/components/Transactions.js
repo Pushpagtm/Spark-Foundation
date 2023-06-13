@@ -17,8 +17,8 @@ function Transactions(props) {
        <table className='customers_table'>
         <tr className='headings'>
           <th>Serial number</th>
-          <th>Sender ID</th>
-          <th>Receiver ID</th>
+          <th>Sender</th>
+          <th>Receiver</th>
           <th>Balance</th>
         </tr>
         {
