@@ -101,25 +101,15 @@ app.post("/transaction", (req, res) => {
       message: err.message,
     });
   }
-
-  //   db.query("INSERT INTO transfers (sender,receiver,balance) VALUES (?,?,?)",
-  //   [sender,receiver,balance],(err,result)=>{
-  //       if(err){
-  //         console.log(err);
-  //       }
-  //       else{
-  //         res.send("Values Inserted.");
-  //       }
-  //   }
-  // );
-  // }
 });
 app.get("/transfer", (req, res) => {
+  
   const sql = "SELECT * FROM transactions";
   db.query(sql, (err, result) => {
     if (err) return res.json({ Message: "error inside server" });
     return res.json(result);
   });
+ 
 });
 app.put("/update", (req, res) => {
   const receiver = req.body.receiver;
@@ -136,15 +126,6 @@ app.put("/update", (req, res) => {
     }
   );
 });
-
-// app.put("/moneyTransfer/:id", (req, res) => {
-//   const sql = "UPDATE customers SET `balance`=? WHERE id=?";
-//   const id = req.params.id;
-//   db.query(sql, [req.body.balance, id], (err, result) => {
-//     if (err)return res.json({ Message: "error inside server" });
-//     return res.json(result);
-//   });
-// });
 
 app.listen(8000, () => {
   console.log("hello backend");
